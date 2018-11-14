@@ -130,15 +130,18 @@ class ViewController: UIViewController {
         }
     }
     @IBAction func dot(_ sender: Any) {
-        result.text = result.text! + "."
-        
+        if judge == 0 {
+            result.text = result.text! + "."
+        }else if result.text!.contains(".") {
+            result.text = result.text! + "."
+        }
         judge = 1
-        
     }
     @IBAction func clear(_ sender: Any) {
-        result.text = ""
-        display.text = ""
+        result.text = "0"
+        display.text = "0"
         re = 0
+        judge = 0
     }
     @IBAction func change(_ sender: Any) {
         let count = Double(result.text!)!
@@ -159,9 +162,12 @@ class ViewController: UIViewController {
         re = 0
     }
     @IBAction func back(_ sender: Any) {
-        
+        result.text?.removeLast()
     }
     @IBAction func add(_ sender: Any) {
+        if symbol != 0 {
+            equal(symbol)
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -187,8 +193,12 @@ class ViewController: UIViewController {
                 re = 0
             }
         }
+        judge = 0
     }
     @IBAction func less(_ sender: Any) {
+        if symbol != 0 {
+            equal(symbol)
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -214,8 +224,12 @@ class ViewController: UIViewController {
                 re = 0
             }
         }
+        judge = 0
     }
     @IBAction func multiply(_ sender: Any) {
+        if symbol != 0 {
+            equal(symbol)
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -242,9 +256,12 @@ class ViewController: UIViewController {
                 add = 1
             }
         }
-        
+        judge = 0
     }
     @IBAction func divide(_ sender: Any) {
+        if symbol != 0 {
+            equal(symbol)
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -271,6 +288,7 @@ class ViewController: UIViewController {
                 add = 1
             }
         }
+        judge = 0
     }
     @IBAction func equal(_ sender: Any) {
         var d:Double
@@ -286,19 +304,30 @@ class ViewController: UIViewController {
         }else if symbol == 4 {
             d = x / (c)
         }else {
-            d = 1000
+            d = 0
         }
         display.text = String(c)
         if judge == 1{
             result.text = String(format:"%f", d)
         }else {
-            result.text = String(format:"%.0f", d)
+            result.text = String(format:"%.5f", d)
         }
+        if c == 0 && symbol == 4 {
+            result.text = "不能除以0"
+        }
+        while (result.text?.last == "0"){
+            result.text?.removeLast()
+        }
+        if (result.text?.last == "."){
+            result.text?.removeLast()
+        }
+        
         re = 1
         judge = 0
         add = 0
     }
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
