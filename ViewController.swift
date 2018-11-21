@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     var judge = 0
     var add = 0
     var symbol = 0
+    var control = ""
+    
+   
     
 
     
@@ -21,112 +24,72 @@ class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     @IBAction func num_0(_ sender: Any) {
         if re == 1{
-            
             result.text = "0"
-            
         }else{
-            
             result.text = result.text! + "0"
-            
         }
     }
     @IBAction func num_1(_ sender: Any) {
         if re == 1{
-            
             result.text = "1"
-            
         }else{
-            
             result.text = result.text! + "1"
-            
         }
     }
     @IBAction func num_2(_ sender: Any) {
         if re == 1{
-            
             result.text = "2"
-            
         }else{
-            
             result.text = result.text! + "2"
-            
         }
     }
     @IBAction func num_3(_ sender: Any) {
         if re == 1{
-            
             result.text = "3"
-            
         }else{
-            
             result.text = result.text! + "3"
-            
         }
     }
     @IBAction func num_4(_ sender: Any) {
         if re == 1{
-            
             result.text = "4"
-            
         }else{
-            
             result.text = result.text! + "4"
-            
         }
     }
     @IBAction func num_5(_ sender: Any) {
         if re == 1{
-            
             result.text = "5"
-            
         }else{
-            
             result.text = result.text! + "5"
-            
         }
     }
     @IBAction func num_6(_ sender: Any) {
         if re == 1{
-            
             result.text = "6"
-            
         }else{
-            
             result.text = result.text! + "6"
-            
         }
     }
     @IBAction func num_7(_ sender: Any) {
         if re == 1{
-            
             result.text = "7"
-            
         }else{
-            
             result.text = result.text! + "7"
-            
         }
     }
     @IBAction func num_8(_ sender: Any) {
         if re == 1{
-            
             result.text = "8"
-            
         }else{
-            
             result.text = result.text! + "8"
-            
         }
     }
     @IBAction func num_9(_ sender: Any) {
         if re == 1{
-            
             result.text = "9"
-            
         }else{
-            
             result.text = result.text! + "9"
-            
         }
     }
     @IBAction func dot(_ sender: Any) {
@@ -142,6 +105,9 @@ class ViewController: UIViewController {
         display.text = "0"
         re = 0
         judge = 0
+        while (result.text?.first == "0"){
+            result.text?.removeFirst()
+        }
     }
     @IBAction func change(_ sender: Any) {
         let count = Double(result.text!)!
@@ -165,8 +131,11 @@ class ViewController: UIViewController {
         result.text?.removeLast()
     }
     @IBAction func add(_ sender: Any) {
-        if symbol != 0 {
+        /*if symbol != 0 {
             equal(symbol)
+        }*/
+        if(result.text == ""){
+            result.text = ""
         }
         if(add == 1)
         {
@@ -187,7 +156,8 @@ class ViewController: UIViewController {
             else
             {
                 let x = Double(result.text!)!
-                display.text = String(x)
+                control = "+"
+                display.text = String(x) + control
                 result.text = ""
                 symbol = 1
                 re = 0
@@ -196,9 +166,9 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func less(_ sender: Any) {
-        if symbol != 0 {
+        /*if symbol != 0 {
             equal(symbol)
-        }
+        }*/
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -218,7 +188,8 @@ class ViewController: UIViewController {
             else
             {
                 let x = Double(result.text!)!
-                display.text = String(x)
+                control = "-"
+                display.text = String(x) + control
                 result.text = ""
                 symbol = 2
                 re = 0
@@ -227,9 +198,9 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func multiply(_ sender: Any) {
-        if symbol != 0 {
+        /*if symbol != 0 {
             equal(symbol)
-        }
+        }*/
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -249,7 +220,8 @@ class ViewController: UIViewController {
             else
             {
                 let x = Double(result.text!)!
-                display.text = String(x)
+                control = "×"
+                display.text = String(x) + control
                 result.text = ""
                 symbol = 3
                 re = 0
@@ -259,9 +231,9 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func divide(_ sender: Any) {
-        if symbol != 0 {
+        /*if symbol != 0 {
             equal(symbol)
-        }
+        }*/
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -281,7 +253,8 @@ class ViewController: UIViewController {
             else
             {
                 let x = Double(result.text!)!
-                display.text = String(x)
+                control = "÷"
+                display.text = String(x) + control
                 result.text = ""
                 symbol = 4
                 re = 0
@@ -304,7 +277,7 @@ class ViewController: UIViewController {
         }else if symbol == 4 {
             d = x / (c)
         }else {
-            d = 0
+            d = 1000
         }
         display.text = String(c)
         if judge == 1{
@@ -327,7 +300,7 @@ class ViewController: UIViewController {
         add = 0
     }
     override func viewDidLoad() {
-        
+        display.text = "0"
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
