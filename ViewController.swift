@@ -10,14 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var re = 0
-    var judge = 0
+    var re = 0 //符号
+    var judge = 0 //小数点
     var add = 0
     var symbol = 0
     var control = ""
-    
-   
-    
+    var number = ""
+    var number_one:String = ""
+    var dis:String = ""
 
     
     @IBOutlet weak var result: UITextField!
@@ -95,45 +95,48 @@ class ViewController: UIViewController {
     @IBAction func dot(_ sender: Any) {
         if judge == 0 {
             result.text = result.text! + "."
-        }else if result.text!.contains(".") {
-            result.text = result.text! + "."
+            judge = 1
         }
-        judge = 1
     }
     @IBAction func clear(_ sender: Any) {
-        result.text = "0"
-        display.text = "0"
+        result.text = ""
+        display.text = ""
         re = 0
         judge = 0
-        while (result.text?.first == "0"){
-            result.text?.removeFirst()
-        }
     }
     @IBAction func change(_ sender: Any) {
-        let count = Double(result.text!)!
+        if(result.text != ""){
+            let count = Double(result.text!)!
+            let count2 = -count
+            result.text = String(count2)
+        }
         
-        let count2 = -count
-        
-        result.text = String(count2)
         
         re = 0
     }
     @IBAction func percent(_ sender: Any) {
-        let count = Double(result.text!)!
-        
-        let count2 = count * 0.01
-        
-        result.text = String(count2)
-        
-        re = 0
+        if(result.text != ""){
+            let count = Double(result.text!)!
+            let count2 = count * 0.01
+            result.text = String(count2)
+            re = 0
+        }
     }
     @IBAction func back(_ sender: Any) {
-        result.text?.removeLast()
+        if(result.text != ""){
+            if(result.text?.last == "."){
+                judge = 0
+                result.text?.removeLast()
+            }
+            else{
+                result.text?.removeLast()
+            }
+        }
     }
     @IBAction func add(_ sender: Any) {
-        /*if symbol != 0 {
+        if symbol != 0 {
             equal(symbol)
-        }*/
+        }
         if(result.text == ""){
             result.text = ""
         }
@@ -157,7 +160,7 @@ class ViewController: UIViewController {
             {
                 let x = Double(result.text!)!
                 control = "+"
-                display.text = String(x) + control
+                display.text = String(x)
                 result.text = ""
                 symbol = 1
                 re = 0
@@ -166,9 +169,9 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func less(_ sender: Any) {
-        /*if symbol != 0 {
+        if symbol != 0 {
             equal(symbol)
-        }*/
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -189,7 +192,7 @@ class ViewController: UIViewController {
             {
                 let x = Double(result.text!)!
                 control = "-"
-                display.text = String(x) + control
+                display.text = String(x)
                 result.text = ""
                 symbol = 2
                 re = 0
@@ -198,9 +201,9 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func multiply(_ sender: Any) {
-        /*if symbol != 0 {
+        if symbol != 0 {
             equal(symbol)
-        }*/
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -221,7 +224,7 @@ class ViewController: UIViewController {
             {
                 let x = Double(result.text!)!
                 control = "×"
-                display.text = String(x) + control
+                display.text = String(x)
                 result.text = ""
                 symbol = 3
                 re = 0
@@ -231,9 +234,9 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func divide(_ sender: Any) {
-        /*if symbol != 0 {
+        if symbol != 0 {
             equal(symbol)
-        }*/
+        }
         if(add == 1)
         {
             let a = Double(display.text!)!
@@ -254,7 +257,7 @@ class ViewController: UIViewController {
             {
                 let x = Double(result.text!)!
                 control = "÷"
-                display.text = String(x) + control
+                display.text = String(x)
                 result.text = ""
                 symbol = 4
                 re = 0
@@ -264,40 +267,42 @@ class ViewController: UIViewController {
         judge = 0
     }
     @IBAction func equal(_ sender: Any) {
-        var d:Double
-        var c:Double
-        let x = Double(display.text!)!
-        c = (result.text! as NSString).doubleValue
-        if symbol == 1 {
-            d = x + c
-        }else if symbol == 2 {
-            d = x - c
-        }else if symbol == 3 {
-            d = x * c
-        }else if symbol == 4 {
-            d = x / (c)
-        }else {
-            d = 1000
-        }
-        display.text = String(c)
-        if judge == 1{
-            result.text = String(format:"%f", d)
-        }else {
-            result.text = String(format:"%.5f", d)
-        }
-        if c == 0 && symbol == 4 {
-            result.text = "不能除以0"
-        }
-        while (result.text?.last == "0"){
-            result.text?.removeLast()
-        }
-        if (result.text?.last == "."){
-            result.text?.removeLast()
+        if(result.text != ""){
+            var d:Double
+            var c:Double
+            let x = Double(display.text!)!
+            c = (result.text! as NSString).doubleValue
+            if symbol == 1 {
+                d = x + c
+            }else if symbol == 2 {
+                d = x - c
+            }else if symbol == 3 {
+                d = x * c
+            }else if symbol == 4 {
+                d = x / (c)
+            }else {
+                d = 0
+            }
+            display.text = String(c)
+            if judge == 1{
+                result.text = String(format:"%f", d)
+            }else {
+                result.text = String(format:"%.5f", d)
+            }
+            if c == 0 && symbol == 4 {
+                result.text = "不能除以0"
+            }
+            while (result.text?.last == "0"){
+                result.text?.removeLast()
+            }
+            if (result.text?.last == "."){
+                result.text?.removeLast()
+            }
+            re = 1
+            judge = 0
+            add = 0
         }
         
-        re = 1
-        judge = 0
-        add = 0
     }
     override func viewDidLoad() {
         display.text = "0"
