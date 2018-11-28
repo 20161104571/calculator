@@ -15,9 +15,6 @@ class ViewController: UIViewController {
     var add = 0
     var symbol = 0
     var control = ""
-    var number = ""
-    var number_one:String = ""
-    var dis:String = ""
 
     
     @IBOutlet weak var result: UITextField!
@@ -103,6 +100,7 @@ class ViewController: UIViewController {
         display.text = ""
         re = 0
         judge = 0
+        symbol = 0
     }
     @IBAction func change(_ sender: Any) {
         if(result.text != ""){
@@ -110,8 +108,6 @@ class ViewController: UIViewController {
             let count2 = -count
             result.text = String(count2)
         }
-        
-        
         re = 0
     }
     @IBAction func percent(_ sender: Any) {
@@ -154,7 +150,7 @@ class ViewController: UIViewController {
         {
             if(result.text == "")
             {
-                result.text = "0"
+                result.text = ""
             }
             else
             {
@@ -186,7 +182,7 @@ class ViewController: UIViewController {
         {
             if(result.text == "")
             {
-                result.text = "0"
+                result.text = ""
             }
             else
             {
@@ -218,7 +214,7 @@ class ViewController: UIViewController {
         {
             if(result.text == "")
             {
-                result.text = "0"
+                result.text = ""
             }
             else
             {
@@ -251,10 +247,11 @@ class ViewController: UIViewController {
         {
             if(result.text == "")
             {
-                result.text = "0"
+                result.text = ""
             }
             else
             {
+                
                 let x = Double(result.text!)!
                 control = "÷"
                 display.text = String(x)
@@ -271,7 +268,7 @@ class ViewController: UIViewController {
             var d:Double
             var c:Double
             let x = Double(display.text!)!
-            c = (result.text! as NSString).doubleValue
+            c = (result.text! as NSString).doubleValue //强制类型转换
             if symbol == 1 {
                 d = x + c
             }else if symbol == 2 {
@@ -292,14 +289,14 @@ class ViewController: UIViewController {
             if c == 0 && symbol == 4 {
                 result.text = "不能除以0"
             }
-            while (result.text?.last == "0"){
+            while(result.text?.last == "0"){
                 result.text?.removeLast()
             }
-            if (result.text?.last == "."){
+            if(result.text?.last == "."){
                 result.text?.removeLast()
             }
             re = 1
-            judge = 0
+            //judge = 0
             add = 0
         }
         
