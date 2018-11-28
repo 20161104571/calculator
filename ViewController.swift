@@ -101,6 +101,7 @@ class ViewController: UIViewController {
         re = 0
         judge = 0
         symbol = 0
+        add = 0
     }
     @IBAction func change(_ sender: Any) {
         if(result.text != ""){
